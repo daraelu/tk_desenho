@@ -33,13 +33,19 @@ class desenho:
         for i in self.color:
             self.button_color = Button(self.bar_menu, bg= i, width = 3, height = 2, command = lambda col=i: self.selected_colors(col)).pack(side="left")
 
+        self.label_colors_choose = Label(self.bar_menu, text="  Color Choose:  ", fg="white", bg="#3b3b3b")
+        self.label_colors_choose.pack(side="left")
+
+        self.color_choose = Button(self.bar_menu, image=self.img_square, bd=0, command=self.selecionar_cor)
+        self.color_choose.pack(side="left")
+
 
         self.text_pen_size = Label(self.bar_menu, text="  Size:  ", fg="white", bg="#3b3b3b").pack(side="left")
 
         self.pen_size = Spinbox(self.bar_menu, from_=1, to= 50)
         self.pen_size.pack(side="left")
 
-        self.text_brushs = Label(self.bar_menu, text = "  Brushs:  ", fg="white", bg="#3b3b3b")\
+        self.text_brushs = Label(self.bar_menu, text = "  Brushs:  ", fg="white", bg="#3b3b3b")
         self.text_brushs.pack(side="left")
 
         self.button_line = Button(self.bar_menu, image = self.img_line, bd=0, command = self.brush_line)
@@ -51,11 +57,11 @@ class desenho:
         self.button_eraser = Button(self.bar_menu, image=self.img_eraser, bd = 0, command = self.brush_eraser)
         self.button_eraser.pack(side="left")
 
-        self.text_options = Label(self.bar_menu, text = "  Options:  ", fg="white", bg="#3b3b3b")\
+        self.text_options = Label(self.bar_menu, text = "  Options:  ", fg="white", bg="#3b3b3b")
         self.text_options.pack(side="left")
 
 
-        self.button_save = Button(self.bar_menu, image=self.img_save, bd=0)
+        self.button_save = Button(self.bar_menu, image=self.img_save, bd=0, command=self.save)
         self.button_save.pack(side="left")
 
         self.button_new = Button(self.bar_menu, image=self.img_new, bd=0, command=self.clean)
@@ -111,7 +117,13 @@ class desenho:
         x1 = self.window.winfo_rootx() + self.area_draw.winfo_width()
         y1 = self.window.winfo_rooty() + self.area_draw.winfo_height()
 
-        pyscreenshot.grab(bbox= x, y, x1, y1)
+        img = pyscreenshot.grab(bbox=(x, y, x1, y1))
+        img.save('image.jpeg', 'jpeg')
+
+
+    def selecionar_cor(self):
+        color = colorchooser.askcolor()
+        print(color)
 
 
 desenho()
