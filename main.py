@@ -36,7 +36,7 @@ class desenho:
         self.label_colors_choose = Label(self.bar_menu, text="  Color Choose:  ", fg="white", bg="#3b3b3b")
         self.label_colors_choose.pack(side="left")
 
-        self.color_choose = Button(self.bar_menu, image=self.img_square, bd=0, command=self.selecionar_cor)
+        self.color_choose = Button(self.bar_menu, image=self.img_square, bd=0, command=self.color)
         self.color_choose.pack(side="left")
 
 
@@ -70,6 +70,9 @@ class desenho:
         self.area_draw = Canvas(self.window, height=720, bg= "gainsboro")
         self.area_draw.pack(fill="both")
         self.area_draw.bind("<B1-Motion>", self.draw)
+
+        self.window.bind("<F1>", self.clean)
+        self.window.bind("<F2>", self.save)
 
         self.window.mainloop()
 
@@ -106,11 +109,11 @@ class desenho:
         self.line_brush = False
         self.eraser_brush = True
 
-    def clean(self):
+    def clean(self, event):
         self.area_draw.delete("all")
 
 
-    def save(self):
+    def save(self, event):
 
         x = self.window.winfo_rootx() + self.area_draw.winfo_x()
         y = self.window.winfo_rooty() + self.area_draw.winfo_y()
@@ -121,9 +124,9 @@ class desenho:
         img.save('image.jpeg', 'jpeg')
 
 
-    def selecionar_cor(self):
-        color = colorchooser.askcolor()
-        print(color)
+    #def selecionar_cor(self):
+        #color = colorchooser.askcolor()
+        #print(color)
 
 
 desenho()
